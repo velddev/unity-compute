@@ -21,8 +21,6 @@ public class ObjectDataNode : ConnectedNode
     {
         ObjectDataNode hoveredNode = (SelectionManager.Instance.HoverNode as ObjectDataNode);
 
-
-
         if (hoveredNode)
         {
             if (hoveredNode != this)

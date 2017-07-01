@@ -8,6 +8,10 @@ using UnityEngine;
 
 public class FunctionNode : Node
 {
+    public string NodeName = "Function Node";
+
+    public TextMesh NodeTextObject;
+
     public ExecuteNode execInNode;
     public ExecuteNode execOutNode;
 
@@ -19,6 +23,8 @@ public class FunctionNode : Node
     protected override void Start()
     {
         base.Start();
+
+
 
         execInNode = new ExecuteNodeBuilder(true)
             .AddToNode(transform, 0)
@@ -74,18 +80,12 @@ public class FunctionNode : Node
             {
                 Run();
 
-                foreach(ConnectedNode x in OutputNodes)
+                if(execOutNode != null)
                 {
-                    if (x != null)
+                    execOutNode.ConnectedNodes.ForEach(x =>
                     {
-                        foreach (NodeConnection<ConnectedNode> y in x.ConnectedNodes)
-                        {
-                            if (y.InputNode.ParentNode != this)
-                            {
-                                y.InputNode.ParentNode.canRun = true;
-                            }
-                        }
-                    }
+                        x.GetOther(execOutNode).ParentNode.canRun = true;
+                    });
                 }
 
                 Debug.Log("ran '" + gameObject.name + "'");

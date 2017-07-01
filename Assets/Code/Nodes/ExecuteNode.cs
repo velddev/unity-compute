@@ -25,7 +25,7 @@ public class ExecuteNode : ConnectedNode
                     .SetNodes(this, hoveredNode)
                     .SetConnectionLine(currentDraggingLine)
                     .Build();
-
+              
                 ConnectedNodes.Add(nodeConnection.Cast<ConnectedNode>());
                 hoveredNode.ConnectedNodes.Add(nodeConnection.Cast<ConnectedNode>());
 

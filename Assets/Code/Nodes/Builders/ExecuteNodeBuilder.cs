@@ -17,7 +17,7 @@ namespace Assets.Code.Nodes.Builders
         {
             if(executeNodeIcon == null)
             {
-                executeNodeIcon = Resources.Load<Sprite>("Nodes/data-node");
+                executeNodeIcon = Resources.Load<Sprite>("Nodes/execute-node");
             }
 
             string prefix = inputNode ? "In" : "Out";
@@ -37,7 +37,7 @@ namespace Assets.Code.Nodes.Builders
         public ExecuteNodeBuilder AddToNode(Transform t, int index)
         {
             thisObject.transform.parent = t;
-            thisObject.transform.localPosition = new Vector3(node.IsInputNode ? -0.25f : 0.25f, 0.17f - (0.1f * index));
+            thisObject.transform.localPosition = new Vector3(node.IsInputNode ? -0.3f : 0.3f, 0.12f - (0.1f * index));
             return this;
         }
         public ExecuteNodeBuilder SetInputNode(bool isInputNode)
