@@ -17,13 +17,21 @@ public class ObjectDataNode : ConnectedNode
         spriteRenderer.color = value.TypeColor;
     }
 
+
     protected override void OnDragFinish()
     {
         ObjectDataNode hoveredNode = (SelectionManager.Instance.HoverNode as ObjectDataNode);
 
-        if (hoveredNode)
+        if (!hoveredNode)
         {
-            if (hoveredNode != this)
+            Destroy(currentGameObject);
+            currentDraggingLine = null;
+            return;
+        }
+        
+        if (hoveredNode != this)
+        {
+            if (hoveredNode.IsInputNode != IsInputNode)
             {
                 NodeConnection<ObjectDataNode> nodeConnection = new NodeConnectionBuilder<ObjectDataNode>()
                     .SetNodes(this, hoveredNode)
@@ -33,6 +41,8 @@ public class ObjectDataNode : ConnectedNode
                 ConnectedNodes.Add(nodeConnection.Cast<ConnectedNode>());
                 hoveredNode.ConnectedNodes.Add(nodeConnection.Cast<ConnectedNode>());
 
+                // todo: register data nodes
+                //RegisterExecNodes(nodeConnection);
 
                 nodeConnection.UpdateLine();
 
