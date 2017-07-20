@@ -20,6 +20,8 @@ public class FunctionNode : Node
 
     public bool canRun;
 
+	private Vector2 dragOffset;
+
     protected override void Start()
     {
         base.Start();
@@ -40,24 +42,30 @@ public class FunctionNode : Node
         RunInternal();
     }
 
-    protected override void OnDrag()
+	protected override void OnDragStart() {
+		
+		base.OnDragStart();
+
+		Vector2 mousePosition = Camera.main.ScreenToWorldPoint( Input.mousePosition );
+		dragOffset = ( (Vector2)transform.position - mousePosition );
+
+	}
+
+	protected override void OnDrag()
     {
         if (SelectionManager.Instance.SelectedNode == this)
         {
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            mousePosition.z = 0;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 
-            transform.position = mousePosition;
+			transform.position = mousePosition + dragOffset;
 
             execInNode.UpdateLines();
             execOutNode.UpdateLines();
 
-
         }
     }
 
-    public virtual void Run()
+	public virtual void Run()
     {
 
     }

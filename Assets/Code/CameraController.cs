@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
 	public int maxZoomLevel = 12;
 	public int minZoomLevel = 1;
 
+	public float panSensitivity = 1f; 
+
 	private bool isDragging = false;
 	private Vector3 dragStartPosition;
 	private Vector3 dragMousePosition;
@@ -43,8 +45,7 @@ public class CameraController : MonoBehaviour {
 			}
 
 			Vector3 panOffset = dragMousePosition - Camera.main.ScreenToWorldPoint( Input.mousePosition );
-
-			camDest += panOffset;
+			camDest += panOffset * panSensitivity;
 			dragMousePosition = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 
 		} else {
