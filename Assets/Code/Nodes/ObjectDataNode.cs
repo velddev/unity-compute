@@ -14,7 +14,9 @@ public class ObjectDataNode : ConnectedNode
     protected override void Start()
     {
         base.Start();
-        spriteRenderer.color = value.TypeColor;
+		
+		// Commented out for now due to error, not sure what you were doing with it.
+        // spriteRenderer.color = value.TypeColor;
     }
 
 
